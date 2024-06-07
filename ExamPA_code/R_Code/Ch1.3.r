@@ -85,3 +85,33 @@ psum <- function(x) {
 }
 result = psum(10)
 result
+
+#1.4 chunk3
+set.seed(0)
+num_of_samples <- 100
+num_of_simulations <- 1000
+standard_deviation <- 2
+sd_of_distribution  <- standard_deviation/sqrt(num_of_samples)
+mu <- 5
+count <- rep(NA,1000)
+for (i in 1:num_of_simulations) {
+    sigma <- mean(rnorm(num_of_samples,mean = mu,sd = standard_deviation))
+    count[i] <- ((sigma <= mu + qnorm(0.975)*sd_of_distribution) & (sigma >= mu - qnorm(0.975)*sd_of_distribution))
+}
+
+mean(count)
+
+#1.5.1
+set.seed(1)
+dat <- data.frame(result = rnorm(30,mean = 5, sd = 1), row.names = NULL, check.rows = FALSE, check.names = TRUE, stringsAsFactors = default.stringsAsFactors())
+dat
+partition <- 1:nrow(dat)
+set.seed(2)
+row <- sample(partition, size = 0.7*nrow(dat), replace = FALSE, prob = NULL)
+dat.train <- dat[row,]
+dat.test <- dat[-row,]
+dat.train
+dat.test
+
+#1.5.2
+
